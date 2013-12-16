@@ -100,7 +100,7 @@
     id       NMTOKEN #IMPLIED
     min      NMTOKEN #IMPLIED
     max      NMTOKEN #IMPLIED
-    type     (ts_http | ts_jabber | ts_pgsql | ts_amqp) #IMPLIED
+    type     (ts_http | ts_jabber | ts_pgsql | ts_amqp | ts_myclient) #IMPLIED
     value    CDATA #IMPLIED>
 
 <!ELEMENT set_option (user_agent*)>
@@ -114,7 +114,7 @@
 
 <!ELEMENT sessions (session+)>
 <!ELEMENT session ( request | thinktime | transaction | setdynvars | for |
-repeat | if | change_type | foreach | set_option | interaction )*>
+repeat | if | change_type | foreach | set_option | interaction | ts_myclient )*>
 <!ATTLIST session
     name         CDATA #REQUIRED
     bidi         CDATA #IMPLIED
@@ -147,7 +147,7 @@ repeat | if | change_type | foreach | set_option | interaction )*>
     >
 
 <!ELEMENT request ( match*, dyn_variable*, ( http | jabber | raw |
-          pgsql | ldap | mysql |fs | shell | job | websocket | amqp | mqtt) )>
+          pgsql | ldap | mysql |fs | shell | job | websocket | amqp | mqtt | myclient) )>
 <!ATTLIST request
     subst (true|false) "false"
     tag   NMTOKEN "undefined"
@@ -466,3 +466,8 @@ repeat | if | change_type | foreach | set_option | interaction )*>
     gte       CDATA #IMPLIED
     lt        CDATA #IMPLIED
     lte       CDATA #IMPLIED >
+
+<!ELEMENT myclient (#PCDATA) >
+<!ATTLIST myclient
+    arith       (add | sub) #IMPLIED
+    type        (echo | compute) #REQUIRED > 
